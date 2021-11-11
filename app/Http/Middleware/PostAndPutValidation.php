@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class EnsureTokenIsValid
+class PostAndPutValidation
 {
     /**
      * Handle an incoming request.
@@ -15,14 +15,12 @@ class EnsureTokenIsValid
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
-    {        
-        if ($request->header('token', false) !== 'key_cur_prod_fnPqT5xQEi5Vcb9wKwbCf65c3BjVGyBB') {
-            return response()->json([
-                'status' => 401,
-                'message' => 'Unauthorized access',
-            ], 401);
-        }
-
+    {
+        $request->validate([
+            'company' => 'required',
+            'model' => 'required',
+            'price' => 'required'
+        ]);
         return $next($request);
     }
 }

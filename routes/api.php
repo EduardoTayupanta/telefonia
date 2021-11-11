@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(["middleware" => "apikey.validate"], function () {
-    //Rutas
+    Route::post('/products', [ProductController::class, 'store'])->middleware(["middleware" => "postandput.validate"]);
+    Route::put('/products/{id}', [ProductController::class, 'update'])->middleware(["middleware" => "postandput.validate"]);
     Route::resource('products', ProductController::class);
 });
 
