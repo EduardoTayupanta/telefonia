@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('company');
             $table->string('model');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('price');
             $table->timestamps();
         });
